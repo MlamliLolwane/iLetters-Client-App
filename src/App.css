@@ -1,6 +1,5 @@
 /* -------------------------------------------Navbar--------------------------------------------------- */
-.navbar-expand-lg .navbar-nav .nav-link
-{
+.navbar-expand-lg .navbar-nav .nav-link {
   color: white
 }
 
@@ -11,6 +10,7 @@
 nav .nav-link.active {
   color: rgb(114, 206, 137) !important;
 }
+
 /* ----------------------------------------------------------------------------------------------------- */
 
 
@@ -21,6 +21,31 @@ nav .nav-link.active {
 
 
 /* -------------------------------------------Forms----------------------------------------------------- */
+.form-background {
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.form-control {
+  border-color: rgb(199, 192, 192) !important;
+  border-top: 0px !important;
+  border-left: 0px !important;
+  border-right: 0px !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  color: white !important
+}
+
+.form-control:focus {
+  box-shadow: none !important;
+  background-color: transparent !important;
+  color: white !important
+}
+
+.form-floating>label {
+  color: white !important;
+  font-weight: 100 !important;
+  font-size: 15px;
+}
 
 /* ----------------------------------------------------------------------------------------------------- */
-
