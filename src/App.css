@@ -8,7 +8,7 @@
 }
 
 nav .nav-link.active {
-  color: rgb(114, 206, 137) !important;
+  color: rgb(66, 138, 84) !important;
 }
 
 /* ----------------------------------------------------------------------------------------------------- */
@@ -46,6 +46,11 @@ nav .nav-link.active {
   color: white !important;
   font-weight: 100 !important;
   font-size: 15px;
+}
+
+.btn-primary {
+ background-color:  rgb(66, 138, 84) !important;
+ border-color:    rgb(66, 138, 84) !important;
 }
 
 /* ----------------------------------------------------------------------------------------------------- */

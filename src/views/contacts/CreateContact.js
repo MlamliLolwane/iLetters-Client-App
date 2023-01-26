@@ -3,6 +3,8 @@
 // 'email',
 // 'preffered_contact_method'
 import NavbarSignedIn from '.././../components/NavbarSignedIn';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { NavLink } from "react-router-dom";
 
 function CreateContact() {
     return (
@@ -14,7 +16,7 @@ function CreateContact() {
                     <div className="col-lg-6 mx-auto form-background py-5">
                         <h3 className="text-center text-white">CONTACTS</h3>
 
-                        <h6 className="text-center text-white fw-lighter">Use this form to add contact details of the learner</h6>
+                        <h6 className="text-center text-white fw-lighter">Step 3 of 3: Use this form to add contact details of the learner</h6>
 
                         <div class="form-floating my-4 mx-5">
                             <input type="email" class="form-control" id="floatingInput" placeholder=" " />
@@ -48,7 +50,8 @@ function CreateContact() {
                         </div>
 
                         <div className="text-center mt-5">
-                            <button type="button" class="btn btn-primary">CREATE CONTACT</button>
+                        <NavLink to="/grade-learner/add" style={{textDecoration:"none"}}><button type="button" class="btn btn-secondary me-2"> PREV <FontAwesomeIcon icon="fa-solid fa-arrow-alt-circle-left" /></button> </NavLink>
+                            <button type="button" class="btn btn-primary">FINISH <FontAwesomeIcon icon="fa-solid fa-check-circle" /></button>
                         </div>
                     </div>
                 </div>

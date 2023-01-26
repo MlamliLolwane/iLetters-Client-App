@@ -18,19 +18,19 @@ function NavbarSignedIn() {
                                     </NavLink>
                                 </li>
                                 <li className="nav-item px-4">
-                                    <NavLink to="/learners/add" className="nav-link" href="#">LEARNERS <FontAwesomeIcon icon="fa-solid fa-user-graduate" /></NavLink>
+                                    <NavLink to="/learners/index" className="nav-link">LEARNERS <FontAwesomeIcon icon="fa-solid fa-user-graduate" /></NavLink>
                                 </li>
 
                                 <li className="nav-item px-4">
-                                    <NavLink to="/schools/add" className="nav-link" href="#">SCHOOL <FontAwesomeIcon icon="fa-solid fa-school" /></NavLink>
+                                    <NavLink to="/schools/index" className="nav-link">SCHOOL <FontAwesomeIcon icon="fa-solid fa-school" /></NavLink>
                                 </li>
 
                                 <li className="nav-item px-4">
-                                    <NavLink to="/grade/add" className="nav-link" href="#">GRADES <FontAwesomeIcon icon="fa-solid fa-list" /></NavLink>
+                                    <NavLink to="/grades/index" className="nav-link">GRADES <FontAwesomeIcon icon="fa-solid fa-list" /></NavLink>
                                 </li>
 
                                 <li className="nav-item px-4">
-                                    <NavLink to="/newsletters/create" className="nav-link" href="#">NEWSLETTERS <FontAwesomeIcon icon="fa-solid fa-envelope" /></NavLink>
+                                    <NavLink to="/newsletters/index" className="nav-link">NEWSLETTERS <FontAwesomeIcon icon="fa-solid fa-envelope" /></NavLink>
                                 </li>
                             </ul>
                             <span className="navbar-text text-white ms-auto">
