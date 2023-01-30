@@ -51,7 +51,7 @@ function Home() {
                         <p style={{ fontSize: "50px" }} className="text-white text-center">21</p>
                         <div className="text-center">
                         <NavLink to="/grades/index"><button type="button" class="btn btn-primary mx-auto">
-                            VIEW GRADES <FontAwesomeIcon icon="fa-solid fa-arrow-alt-circle-right" /></button></NavLink>
+                            VIEW CLASSES <FontAwesomeIcon icon="fa-solid fa-arrow-alt-circle-right" /></button></NavLink>
                         </div>
                     </div>
                 </div>
