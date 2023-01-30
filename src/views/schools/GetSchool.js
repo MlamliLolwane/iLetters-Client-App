@@ -1,4 +1,5 @@
 import NavbarSignedIn from '.././../components/NavbarSignedIn';
+import Footer from '.././../components/Footer';
 
 function GetSchool() {
     return (
@@ -11,7 +12,7 @@ function GetSchool() {
                         <h5 className="text-center text-white">SCHOOL INFORMATION</h5>
                     </div>
                 </div>
-                <div className="row">
+                <div className="row mb-5">
                     <div className="col-lg-6 mx-auto form-background py-5">
                         <div class="table-responsive">
                             <table class="table">
@@ -52,6 +53,7 @@ function GetSchool() {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 }

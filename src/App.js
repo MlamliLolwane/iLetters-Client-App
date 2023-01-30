@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom"
 import Home from './views/Home';
 import About from './views/About';
 import ContactUs from './views/Contact';
+import Login from './views/Login'
 
 /**
  * Contacts
@@ -36,6 +37,7 @@ import CreateNewsletter from './views/newsletters/CreateNewsletter';
  * Aggregates
  */
 import LearnerInformation from './views/aggregated/LearnerInformation';
+import AdminHome from './views/aggregated/Home';
 
 
 
@@ -56,6 +58,7 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/about" element={<About />} />
         <Route exact path="/contact" element={<ContactUs />} />
+        <Route exact path="/login" element={<Login />} />
 
         {/* Contact Routes */}
         <Route exact path="/contacts/add" element={<CreateContact />} />
@@ -77,6 +80,7 @@ function App() {
         
         {/* Aggregates Routes */}
         <Route exact path="/learners/index" element={<LearnerInformation />} />
+        <Route exact path="/learners/home" element={<AdminHome />} />
       </Routes>
     </div>
   );

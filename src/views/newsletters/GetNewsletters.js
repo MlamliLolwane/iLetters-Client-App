@@ -1,4 +1,5 @@
 import NavbarSignedIn from '.././../components/NavbarSignedIn';
+import Footer from '.././../components/Footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from "react-router-dom";
 
@@ -63,6 +64,7 @@ function GetNewsletters()
                     </div>
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 }

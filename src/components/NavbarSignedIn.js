@@ -7,14 +7,14 @@ function NavbarSignedIn() {
             <header>
                 <nav className="navbar navbar-expand-lg bg-body-tertiary bg-dark">
                     <div className="container-fluid">
-                        <a className="navbar-brand text-white" href="#">iLetters <FontAwesomeIcon icon="fa-solid fa-share" /></a>
+                    <NavLink to="/learners/home" className="navbar-brand text-white">iLetters <FontAwesomeIcon icon="fa-solid fa-share" /></NavLink>
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
                         <div className="collapse navbar-collapse" id="navbarText">
                             <ul className="navbar-nav mb-2 mb-lg-0">
                                 <li className="nav-item">
-                                    <NavLink to="/" className="nav-link ps-4" aria-current="page" href="#">HOME <FontAwesomeIcon icon="fa-solid fa-house" />
+                                    <NavLink to="/learners/home" className="nav-link ps-4" aria-current="page" href="#">HOME <FontAwesomeIcon icon="fa-solid fa-house" />
                                     </NavLink>
                                 </li>
                                 <li className="nav-item px-4">
