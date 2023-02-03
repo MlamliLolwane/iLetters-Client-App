@@ -19,7 +19,13 @@ export async function postRequst(url, payload){
 }
 
 export async function patchRequest(url, payload){
-    const response = await axiosClient.patch(`/${url}`, payload);
+    const config = {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      };
+
+    const response = await axiosClient.patch(`/${url}`, payload, config);
     return response;
 }
 
