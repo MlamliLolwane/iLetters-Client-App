@@ -14,10 +14,10 @@ function NavbarSignedOff() {
               <div className="collapse navbar-collapse" id="navbarText">
                 <ul className="navbar-nav mb-2 mb-lg-0">
                   <li className="nav-item">
-                    <NavLink to="/" className="nav-link ps-5" aria-current="page">HOME <FontAwesomeIcon icon="fa-solid fa-house" />
+                    <NavLink to="/" className="nav-link ps-lg-5" aria-current="page">HOME <FontAwesomeIcon icon="fa-solid fa-house" />
                     </NavLink>
                   </li>
-                  <li className="nav-item px-5">
+                  <li className="nav-item px-lg-5">
                     <NavLink to="/about" className="nav-link">ABOUT <FontAwesomeIcon icon="fa-solid fa-circle-info" /></NavLink>
                   </li>
                   <li className="nav-item">
