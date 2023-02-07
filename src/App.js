@@ -19,6 +19,7 @@ import CreateLearner from './views/learners/CreateLearner';
  * Schools
  */
 import GetSchools from './views/schools/GetSchool';
+import CreateSchool from './views/schools/CreateSchool';
 
 /**
  * Grades
@@ -68,6 +69,7 @@ function App() {
 
         {/* School Routes */}
         <Route exact path="/schools/index" element={<GetSchools />} />
+        <Route exact path="/schools/add" element={<CreateSchool />} />
 
         {/* Grade Routes */}
         <Route exact path="/grades/index" element={<GetGrades />} />
