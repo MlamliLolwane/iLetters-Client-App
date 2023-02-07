@@ -1,12 +1,31 @@
-// 'cell_phone',
-// 'whatsapp',
-// 'email',
-// 'preffered_contact_method'
 import NavbarSignedIn from '.././../components/NavbarSignedIn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from "react-router-dom";
+import { useState } from 'react';
+import {postRequst} from '../../axiosClient';
 
 function CreateContact() {
+    const [cellphone, setCellPhone] = useState('');
+    const [whatsapp, setWhatsapp] = useState('');
+    const [email, setEmail] = useState('');
+    const [preferredContactMethod, setPreferredContactMethod] = useState('');
+    //This is where we take the data from the Learner, Grade and Contacts steps and send them to the server
+    const createLearnerInfo = (e) => {
+        e.preventDefault();
+
+        const contactData = new FormData();
+
+        contactData.append('cell_phone', cellphone);
+        contactData.append('whatsapp', whatsapp);
+        contactData.append('email', email);
+        contactData.append('preffered_contact_method', preferredContactMethod);
+
+        const learner = postRequst('learners/store', contactData);
+        const grade_learner = postRequst('grade_learner/store', contactData);
+        const contact = postRequst('contacts/store', contactData);
+
+        console.log(contact);
+    }
     return (
         <div>
             <NavbarSignedIn />
@@ -19,18 +38,21 @@ function CreateContact() {
                         <h6 className="text-center text-white fw-lighter">Step 3 of 3: Use this form to add contact details of the learner</h6>
 
                         <div class="form-floating my-4 mx-5">
-                            <input type="email" class="form-control" id="floatingInput" placeholder=" " />
-                            <label for="floatingInput">Cellphone Number</label>
+                            <input type="text" class="form-control" id="cellphone" placeholder=" " 
+                            value={cellphone} onChange={(e) => {setCellPhone(e.target.value)}}/>
+                            <label for="cellphone">Cellphone Number</label>
                         </div>
 
                         <div class="form-floating mb-3 mx-5">
-                            <input type="email" class="form-control" id="floatingInput" placeholder=" " />
-                            <label for="floatingInput">Whatsapp Number</label>
+                            <input type="text" class="form-control" id="whatsapp" placeholder=" " 
+                            value={whatsapp} onChange={(e) => {setWhatsapp(e.target.value)}}/>
+                            <label for="whatsapp">Whatsapp Number</label>
                         </div>
 
                         <div class="form-floating mb-3 mx-5">
-                            <input type="email" class="form-control" id="floatingInput" placeholder=" " />
-                            <label for="floatingInput">Email Address</label>
+                            <input type="email" class="form-control" id="email" placeholder=" " 
+                            value={email} onChange={(e) => {setEmail(e.target.value)}}/>
+                            <label for="email">Email Address</label>
                         </div>
 
                         <div class="form-floating mx-5 pb-5">
@@ -51,7 +73,7 @@ function CreateContact() {
 
                         <div className="text-center mt-5">
                         <NavLink to="/grade-learner/add" style={{textDecoration:"none"}}><button type="button" class="btn btn-secondary me-2"> PREV <FontAwesomeIcon icon="fa-solid fa-arrow-alt-circle-left" /></button> </NavLink>
-                            <button type="button" class="btn btn-primary">FINISH <FontAwesomeIcon icon="fa-solid fa-check-circle" /></button>
+                            <button type="button" onClick={createLearnerInfo} class="btn btn-primary">FINISH <FontAwesomeIcon icon="fa-solid fa-check-circle" /></button>
                         </div>
                     </div>
                 </div>

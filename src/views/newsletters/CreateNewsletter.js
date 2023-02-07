@@ -1,7 +1,27 @@
 import NavbarSignedIn from '.././../components/NavbarSignedIn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {useState} from 'react';
+import {postRequst} from '../../axiosClient';
 
 function CreateNewsletter() {
+    const [title, setTitle] = useState('');
+    const [body, setBody] = useState('');
+    const [comment, setComment] = useState('');
+
+    const createNewsletter = (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+
+        formData.append('title', title);
+        formData.append('body', body);
+        formData.append('comment', setComment);
+
+        const response = postRequst('newsletters/create', formData);
+
+        console.log(response);
+    }
+
     return (
         <div>
             <NavbarSignedIn />

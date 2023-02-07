@@ -39,46 +39,46 @@ function CreateSchool() {
 
                         <h6 className="text-center text-white fw-lighter">Use this form to add the particulars of your school to the database.</h6>
 
-                        <div class="form-floating my-4 mx-5">
-                            <input type="text" class="form-control" id="floatingInput" value={schoolName} 
+                        <div className="form-floating my-4 mx-5">
+                            <input type="text" className="form-control" id="schoolName" value={schoolName} 
                             placeholder=" " onChange={(e) => {setSchoolName(e.target.value)}}/>
-                            <label for="floatingInput">School Name</label>
+                            <label for="schoolName">School Name</label>
                         </div>
 
-                        <div class="form-floating mb-3 mx-5">
-                            <input type="email" class="form-control" id="floatingInput" placeholder=" " 
+                        <div className="form-floating mb-3 mx-5">
+                            <input type="email" className="form-control" id="email" placeholder=" " 
                             value={email} onChange={(e) => {setEmail(e.target.value)}}/>
-                            <label for="floatingInput">Email Address</label>
+                            <label for="email">Email Address</label>
                         </div>
 
-                        <div class="form-floating mb-3 mx-5">
-                            <input type="text" class="form-control" id="floatingInput" placeholder=" " 
+                        <div className="form-floating mb-3 mx-5">
+                            <input type="text" className="form-control" id="phoneNumber" placeholder=" " 
                             value={primaryPhoneNumber} onChange={(e) => {setPrimaryPhoneNumber(e.target.value)}}/>
-                            <label for="floatingInput">Phone Number</label>
+                            <label for="phoneNumber">Phone Number</label>
                         </div>
 
-                        <div class="form-floating mb-3 mx-5">
-                            <input type="text" class="form-control" id="floatingInput" placeholder=" " 
+                        <div className="form-floating mb-3 mx-5">
+                            <input type="text" className="form-control" id="alternativePhone" placeholder=" " 
                             value={secondaryPhoneNumber} onChange={(e) => {setSecondaryPhoneNumber(e.target.value)}}/>
-                            <label for="floatingInput">Alternative Phone Number (Optional)</label>
+                            <label for="alternativePhone">Alternative Phone Number (Optional)</label>
                         </div>
 
-                        <div class="form-floating mb-3 mx-5">
-                            <textarea class="form-control" placeholder=" " id="physicalAddress" style={{ height: "130px" }} 
+                        <div className="form-floating mb-3 mx-5">
+                            <textarea className="form-control" placeholder=" " id="physicalAddress" style={{ height: "130px" }} 
                             value={physicalAddress} onChange={(e) => {setPhysicallAddress(e.target.value)}}></textarea>
                             <label for="physicalAddress">Physical Address</label>
 
                         </div>
 
-                        <div class="form-floating mb-3 mx-5">
-                            <textarea class="form-control" placeholder=" " id="postalAddress" style={{ height: "130px" }}
+                        <div className="form-floating mb-3 mx-5">
+                            <textarea className="form-control" placeholder=" " id="postalAddress" style={{ height: "130px" }}
                             value={postalAddress} onChange={(e) => {setPostalAddress(e.target.value)}}></textarea>
                             <label for="postalAddress">Postal Address (Leave blank if same as physical address)</label>
 
                         </div>
 
                         <div className="text-center mt-5">
-                            <button type="submit" onClick={createSchool} class="btn btn-primary">CREATE SCHOOL <FontAwesomeIcon icon="fa-solid fa-check-circle" /></button>
+                            <button type="submit" onClick={createSchool} className="btn btn-primary">CREATE SCHOOL <FontAwesomeIcon icon="fa-solid fa-check-circle" /></button>
                         </div>
                     </div>
                 </div>
