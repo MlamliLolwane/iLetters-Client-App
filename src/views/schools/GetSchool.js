@@ -1,7 +1,10 @@
 import NavbarSignedIn from '.././../components/NavbarSignedIn';
 import Footer from '.././../components/Footer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { NavLink } from "react-router-dom";
 
 function GetSchool() {
+    const school = '';
     return (
         <div>
             <NavbarSignedIn />
@@ -13,7 +16,7 @@ function GetSchool() {
                     </div>
                 </div>
                 <div className="row mb-5">
-                    <div className="col-lg-6 mx-auto form-background py-5">
+                    {school ? <div className="col-lg-6 mx-auto form-background pt-3 pb-5">
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -50,10 +53,25 @@ function GetSchool() {
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                        <div className="text-center pt-3">
+                            <button type="button" class="btn btn-primary me-2"> UPDATE <FontAwesomeIcon icon="fa-solid fa-pencil-alt" /></button>
+                            <button type="button" class="btn btn-secondary">DELETE <FontAwesomeIcon icon="fa-solid fa-delete-left" /></button>
+                        </div>
+                    </div> :
+                        <div className="col-lg-6 mx-auto form-background pt-3 pb-5">
+                            <p className="text-white fw-lighter">
+                                You have not yet added your school information to the database.
+                                You can use the button below to add the information which will later on
+                                be displayed here.
+                            </p>
+                            <div className="text-center pt-3">
+                                <NavLink to="/grade-learner/add"><button type="button" class="btn btn-primary">ADD SCHOOL <FontAwesomeIcon icon="fa-solid fa-plus-circle" /></button></NavLink>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </div>
     );
 }

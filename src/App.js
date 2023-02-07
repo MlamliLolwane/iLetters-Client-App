@@ -45,12 +45,13 @@ import AdminHome from './views/aggregated/Home';
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faRightToBracket, faHouse, faCircleInfo, faMessage, faShare, faUser, faUserGraduate, 
   faEnvelope, faSchool, faList, faEdit, faEllipsisVertical, faPlusCircle, faArrowAltCircleRight, 
-  faArrowAltCircleLeft, faCheckCircle }
+  faArrowAltCircleLeft, faCheckCircle, faDeleteLeft, faPencilAlt }
   from "@fortawesome/free-solid-svg-icons";
 
 library.add(faRightToBracket, faHouse, faCircleInfo, faMessage, faShare, 
   faUser, faUserGraduate, faEnvelope, faSchool, faList, faEdit, faEllipsisVertical, faPlusCircle, 
-  faArrowAltCircleRight, faArrowAltCircleLeft, faCheckCircle);
+  faArrowAltCircleRight, faArrowAltCircleLeft, faCheckCircle, faDeleteLeft,
+  faPencilAlt);
 
 function App() {
   return (

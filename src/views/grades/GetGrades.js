@@ -13,8 +13,8 @@ function GetGrades()
                 <div className="row mt-5 pb-2">
                     <div className="col">
                         <h5 className="fw-bold d-inline">ALL GRADES</h5>
-                        <NavLink to="/grades/add" className="btn btn-sm btn-primary float-end" href="#">ADD GRADE 
-                        <FontAwesomeIcon icon="fa-solid fa-plus-circle" /> </NavLink>
+                        <NavLink to="/grades/add" className="btn btn-sm btn-primary float-end" href="#">
+                            ADD GRADE <FontAwesomeIcon icon="fa-solid fa-plus-circle" /> </NavLink>
                     </div>
 
                 </div>

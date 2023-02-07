@@ -13,8 +13,8 @@ function GetNewsletters()
                 <div className="row mt-5 pb-2">
                     <div className="col">
                         <h5 className="fw-bold d-inline">ALL NEWSLETTERS</h5>
-                        <NavLink to="/newsletters/add" className="btn btn-sm btn-primary float-end" href="#">CREATE NEWSLETTER 
-                        <FontAwesomeIcon icon="fa-solid fa-plus-circle" /> </NavLink>
+                        <NavLink to="/newsletters/add" className="btn btn-sm btn-primary float-end" href="#">
+                            CREATE NEWSLETTER <FontAwesomeIcon icon="fa-solid fa-plus-circle" /> </NavLink>
                     </div>
 
                 </div>

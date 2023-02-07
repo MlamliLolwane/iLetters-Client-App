@@ -11,8 +11,8 @@ function LearnerInformation() {
                 <div className="row mt-5 pb-2">
                     <div className="col">
                         <h5 className="fw-bold d-inline">ALL LEARNERS</h5>
-                        <NavLink to="/learners/add" className="btn btn-sm btn-primary float-end" href="#">ADD LEARNER 
-                        <FontAwesomeIcon icon="fa-solid fa-plus-circle" /> </NavLink>
+                        <NavLink to="/learners/add" className="btn btn-sm btn-primary float-end">
+                            ADD LEARNER <FontAwesomeIcon icon="fa-solid fa-plus-circle" /> </NavLink>
                     </div>
 
 
