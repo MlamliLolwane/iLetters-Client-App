@@ -14,7 +14,7 @@ function Home() {
                     </div>
                 </div>
                 <div className="row mb-5">
-                    <div className="col form-background mx-4 py-4">
+                    <div className="col-lg form-background mx-lg-4 py-4">
                         <h6 className="text-center text-white">NEWSLETTERS</h6>
                         <p style={{ fontSize: "50px" }} className="text-white text-center">17</p>
                         <div className="text-center">
@@ -25,7 +25,7 @@ function Home() {
 
                     {/* <div className="col-1"></div> */}
 
-                    <div className="col form-background mx-4 py-4">
+                    <div className="col-lg form-background mx-lg-4 py-4 my-5 my-lg-0">
                         <h6 className="text-center text-white">LEARNERS</h6>
                         <p style={{ fontSize: "50px" }} className="text-white text-center">403</p>
                         <div className="text-center">
@@ -34,7 +34,7 @@ function Home() {
                         </div>
                     </div>
 
-                    <div className="col form-background mx-4 py-4">
+                    <div className="col-lg form-background mx-lg-4 py-4">
                         <h6 className="text-center text-white">GRADES</h6>
                         <p style={{ fontSize: "50px" }} className="text-white text-center">7</p>
                         <div className="text-center">
