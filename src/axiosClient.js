@@ -29,7 +29,7 @@ export async function patchRequest(url, payload){
     return response;
 }
 
-export async function deleteRequest(){
+export async function deleteRequest(url){
     const response = await axiosClient.delete(`/${url}`);
     return response;
 }
