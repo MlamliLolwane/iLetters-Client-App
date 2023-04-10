@@ -2,9 +2,23 @@ import NavbarSignedIn from '.././../components/NavbarSignedIn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from "react-router-dom";
 import Footer from '.././../components/Footer';
+import {useEffect, useState} from 'react';
+import {getRequest} from '../../axiosClient';
 
 function GetGrades()
 {
+    const [grades, setGrades] = useState([]);
+
+    useEffect(() => {
+        getGrades();
+    }, []);
+
+    const getGrades = () => {
+        const response = getRequest('grades/index');
+
+        setGrades(response.data);
+    };
+
     return(
         <div>
             <NavbarSignedIn />

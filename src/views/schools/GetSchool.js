@@ -2,9 +2,22 @@ import NavbarSignedIn from '.././../components/NavbarSignedIn';
 import Footer from '.././../components/Footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import {getRequest} from '../../axiosClient';
 
 function GetSchool() {
-    const school = '';
+    const [schools, setSchools] = useState([]);
+
+    useEffect(() =>{
+        getSchools();
+    }, []);
+
+    const getSchools = () => {
+        const response = getRequest('schools/index');
+
+        setSchools(response.data);
+    };
+
     return (
         <div>
             <NavbarSignedIn />
@@ -16,9 +29,9 @@ function GetSchool() {
                     </div>
                 </div>
                 <div className="row mb-5">
-                    {school ? <div className="col-lg-6 mx-auto form-background pt-3 pb-5">
-                        <div class="table-responsive">
-                            <table class="table">
+                    {schools ? <div className="col-lg-6 mx-auto form-background pt-3 pb-5">
+                        <div className="table-responsive">
+                            <table className="table">
                                 <thead>
                                     <tr>
                                         <th> </th>
@@ -54,8 +67,8 @@ function GetSchool() {
                             </table>
                         </div>
                         <div className="text-center pt-3">
-                            <button type="button" class="btn btn-primary me-2"> UPDATE <FontAwesomeIcon icon="fa-solid fa-pencil-alt" /></button>
-                            <button type="button" class="btn btn-secondary">DELETE <FontAwesomeIcon icon="fa-solid fa-delete-left" /></button>
+                            <button type="button" className="btn btn-primary me-2"> UPDATE <FontAwesomeIcon icon="fa-solid fa-pencil-alt" /></button>
+                            <button type="button" className="btn btn-secondary">DELETE <FontAwesomeIcon icon="fa-solid fa-delete-left" /></button>
                         </div>
                     </div> :
                         <div className="col-lg-6 mx-auto form-background pt-3 pb-5">
@@ -65,7 +78,7 @@ function GetSchool() {
                                 be displayed here.
                             </p>
                             <div className="text-center pt-3">
-                                <NavLink to="/grade-learner/add"><button type="button" class="btn btn-primary">ADD SCHOOL <FontAwesomeIcon icon="fa-solid fa-plus-circle" /></button></NavLink>
+                                <NavLink to="/schools/add"><button type="button" className="btn btn-primary">ADD SCHOOL <FontAwesomeIcon icon="fa-solid fa-plus-circle" /></button></NavLink>
                             </div>
                         </div>
                     }

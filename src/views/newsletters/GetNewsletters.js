@@ -2,9 +2,23 @@ import NavbarSignedIn from '.././../components/NavbarSignedIn';
 import Footer from '.././../components/Footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from "react-router-dom";
+import {useEffect, useState} from 'react';
+import {getRequest} from '../../axiosClient';
 
 function GetNewsletters()
 {
+    const [newsletters, setNewsletters] = useState([]);
+
+    useEffect(() => {
+        GetNewsletters();
+    }, []);
+
+    const GetNewsletters = () => {
+        const response = getRequest('newsletters/get-newsletters');
+
+        setNewsletters(response);
+    };
+
     return(
         <div>
             <NavbarSignedIn />
