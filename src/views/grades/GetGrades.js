@@ -2,91 +2,81 @@ import NavbarSignedIn from '.././../components/NavbarSignedIn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from "react-router-dom";
 import Footer from '.././../components/Footer';
-import {useEffect, useState} from 'react';
-import {getRequest} from '../../axiosClient';
-
-function GetGrades()
-{
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import LoadingOverlay from 'react-loading-overlay-ts';
+import HashLoader from 'react-spinners/HashLoader';
+function GetGrades() {
     const [grades, setGrades] = useState([]);
-
+    const [active, setActive] = useState(true);
     useEffect(() => {
-        getGrades();
+        axios.get('http://localhost:8000/api/grades/index')
+            .then((response) => {
+                setGrades(response.data);
+                console.log(response.data[0]);
+                setActive(false);
+            })
     }, []);
 
-    const getGrades = () => {
-        const response = getRequest('grades/index');
+    return (
+        <LoadingOverlay
+            active={active}
+            styles={{
+                overlay: (base) => ({
+                    ...base,
+                    background: '#1d1b1bf6',
+                    height: '100vh'
+                }),
+            }}
+            spinner={<HashLoader color="#4b9263" />}
+            text={"Loading..."}
+        >
+            <div>
+                <NavbarSignedIn />
 
-        setGrades(response.data);
-    };
+                <div className="container">
+                    <div className="row mt-5 pb-2">
+                        <div className="col">
+                            <h5 className="fw-bold d-inline">ALL GRADES</h5>
+                            <NavLink to="/grades/add" className="btn btn-sm btn-primary float-end" href="#">
+                                ADD GRADE <FontAwesomeIcon icon="fa-solid fa-plus-circle" /> </NavLink>
+                        </div>
 
-    return(
-        <div>
-            <NavbarSignedIn />
-
-            <div className="container">
-                <div className="row mt-5 pb-2">
-                    <div className="col">
-                        <h5 className="fw-bold d-inline">ALL GRADES</h5>
-                        <NavLink to="/grades/add" className="btn btn-sm btn-primary float-end" href="#">
-                            ADD GRADE <FontAwesomeIcon icon="fa-solid fa-plus-circle" /> </NavLink>
                     </div>
 
-                </div>
-
-                <div className="row mb-5">
-                    <div className="col">
-                        <div class="table-responsive">
-                            <table class="table table-dark">
-                                <thead>
-                                    <tr>
-                                        <th>GRADE</th>
-                                        <th>CLASSES</th>
-                                        <th>ACTION</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td className="fw-semibold">1</td>
-                                        <td className="fw-semibold">A, B, C, D</td>
-                                        <td><FontAwesomeIcon icon="fa-solid fa-ellipsis-vertical" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="fw-semibold">2</td>
-                                        <td className="fw-semibold">A, B, C</td>
-                                        <td><FontAwesomeIcon icon="fa-solid fa-ellipsis-vertical" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td className="fw-semibold">3</td>
-                                        <td className="fw-semibold">A, B, C</td>
-                                        <td><FontAwesomeIcon icon="fa-solid fa-ellipsis-vertical" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td className="fw-semibold">4</td>
-                                        <td className="fw-semibold">A, B, C, D</td>
-                                        <td><FontAwesomeIcon icon="fa-solid fa-ellipsis-vertical" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="fw-semibold">5</td>
-                                        <td className="fw-semibold">A, B, C, D</td>
-                                        <td><FontAwesomeIcon icon="fa-solid fa-ellipsis-vertical" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="fw-semibold">6</td>
-                                        <td className="fw-semibold">A, B, C</td>
-                                        <td><FontAwesomeIcon icon="fa-solid fa-ellipsis-vertical" />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div className="row mb-5">
+                        <div className="col">
+                            <div className="table-responsive">
+                                <table className="table table-dark">
+                                    <thead>
+                                        <tr>
+                                            <th>GRADE</th>
+                                            <th>CLASSES</th>
+                                            <th>ACTION</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            grades.map((grade) => {
+                                                return (
+                                                    <tr key={grade.id}>
+                                                            <td className="fw-semibold">{grade.current_grade}</td>
+                                                            <td className="fw-semibold">{grade.classes}</td>
+                                                            <td><FontAwesomeIcon icon="fa-solid fa-ellipsis-vertical" />
+                                                            </td>
+                                                    </tr>
+                                                )
+                                            })
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <Footer />
             </div>
-            <Footer/>
-        </div>
+        </LoadingOverlay>
     );
 }
 

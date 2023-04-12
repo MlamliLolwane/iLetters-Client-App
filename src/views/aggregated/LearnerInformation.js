@@ -5,25 +5,33 @@ import { NavLink } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { getRequest } from '../../axiosClient';
 import axios from 'axios';
+import LoadingOverlay from 'react-loading-overlay-ts';
+import HashLoader from 'react-spinners/HashLoader';
 
 function LearnerInformation() {
     const [learnerInfo, setLearnerInfo] = useState([]);
+    const [active, setActive] = useState(true);
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/query/learner-information')
             .then((response) => {
-                //console.log(response.data.data);
                 setLearnerInfo(response.data.data);
+                setActive(false);
             })
     }, []);
 
-    const getLearnerInfo = () => {
-        const response = getRequest('query/learner-information');
-
-        setLearnerInfo(response.data);
-    };
-
     return (
+        <LoadingOverlay
+        active={active}
+        styles={{
+            overlay: (base) => ({
+                ...base,
+                background: '#1d1b1bf6',
+                height: '100vh'
+            }),
+        }}
+        spinner={<HashLoader color="#4b9263"/>}
+        >
         <div>
             <NavbarSignedIn />
             <div className="container">
@@ -75,6 +83,7 @@ function LearnerInformation() {
             </div>
             <Footer />
         </div>
+        </LoadingOverlay>
     )
 }
 
