@@ -1,9 +1,26 @@
 import NavbarSignedIn from '.././../components/NavbarSignedIn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from "react-router-dom";
+import LoadingOverlay from 'react-loading-overlay-ts';
+import HashLoader from 'react-spinners/HashLoader';
+import {useState} from 'react';
 
 function CreateLearner() {
+
+const [active, setActive] = useState(false);
+//setActive(false);
     return (
+        <LoadingOverlay
+        active={active}
+        styles={{
+            overlay: (base) => ({
+                ...base,
+                background: '#1d1b1bf6',
+                height: '100vh'
+            }),
+        }}
+        spinner={<HashLoader color="#4b9263"/>}
+        >
         <div>
             <NavbarSignedIn />
 
@@ -31,6 +48,7 @@ function CreateLearner() {
                 </div>
             </div>
         </div >
+        </LoadingOverlay>
     );
 }
 

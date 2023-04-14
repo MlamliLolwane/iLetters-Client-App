@@ -2,11 +2,14 @@ import NavbarSignedIn from '.././../components/NavbarSignedIn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {useState} from 'react';
 import {postRequst} from '../../axiosClient';
+import LoadingOverlay from 'react-loading-overlay-ts';
+import HashLoader from 'react-spinners/HashLoader';
 
 function CreateNewsletter() {
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
     const [comment, setComment] = useState('');
+const [active, setActive] = useState(true);
 
     const createNewsletter = (e) => {
         e.preventDefault();
@@ -18,11 +21,23 @@ function CreateNewsletter() {
         formData.append('comment', setComment);
 
         const response = postRequst('newsletters/create', formData);
+setActive(false);
 
         console.log(response);
     }
 
     return (
+        <LoadingOverlay
+        active={active}
+        styles={{
+            overlay: (base) => ({
+                ...base,
+                background: '#1d1b1bf6',
+                height: '100vh'
+            }),
+        }}
+        spinner={<HashLoader color="#4b9263"/>}
+        >
         <div>
             <NavbarSignedIn />
 
@@ -56,6 +71,7 @@ function CreateNewsletter() {
                 </div>
             </div>
         </div>
+        </LoadingOverlay>
     );
 }
 
