@@ -29,7 +29,7 @@ function CreateGradeLearner() {
 
         setActive(false);
     }
-    setActive(false);
+    //setActive(false);
     return (
         <LoadingOverlay
             active={active}
