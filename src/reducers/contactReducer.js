@@ -5,7 +5,6 @@ export default (state = [], action) => {
      
       case actionTypes.STORE_CONTACT_INFORMATION:
       return [
-        ...state,
         Object.assign({}, action.contactInformation)
       ];
       case actionTypes.REMOVE_CONTACT_INFORMATION:

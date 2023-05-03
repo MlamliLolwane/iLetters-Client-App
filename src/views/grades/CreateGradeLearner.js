@@ -1,7 +1,3 @@
-// 'cell_phone',
-// 'whatsapp',
-// 'email',
-// 'preffered_contact_method'
 import NavbarSignedIn from '.././../components/NavbarSignedIn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink, useNavigate } from "react-router-dom";
@@ -24,23 +20,30 @@ function CreateGradeLearner() {
     const dispatch = useDispatch();
     const ref = useRef(null);
     const [grades, setGrades] = useState([]);
-
     const gradeLearner = useSelector(state => state.gradeLearner);
 
     useEffect(() => {
         //Change to if cookie exists then load from cookie, else load from database
-            setActive(true);
+        setActive(true);
+        const localGrades = localStorage.getItem('Grades');
 
+        if (localGrades) {
+            setGrades(JSON.parse(localGrades));
+            setActive(false);
+        }
+        else {
+            alert("False")
             axios.get('http://localhost:8000/api/grades/get')
-            .then((response) => {
-                setGrades(response.data.data);
-                setActive(false);
-            });
+                .then((response) => {
+                    setGrades(response.data.data);
+                    localStorage.setItem('Grades', JSON.stringify(response.data.data));
+                    setActive(false);
+                });
+        }
     }, []);
 
     function previous() {
-        if(ref.current.values.grade_id)
-        {
+        if (ref.current.values.grade_id) {
             dispatch(storeGradeLearnerInformation(ref.current.values));
         }
 
@@ -85,13 +88,14 @@ function CreateGradeLearner() {
 
                                 <div className="form-floating my-4 mx-5">
                                     <Field as="select" name="grade_id" className="form-control select-style" id="grade_id" placeholder=" ">
-                                    <option defaultValue="0">Select Grade</option>
-                                    {
-                                        grades.map((grade) => {
-                                            return (
-                                            <option key={grade.id} value={grade.id}>{"Grade " + grade.grade_number + grade.grade_suffix}</option>
-                                            )})
-                                    }
+                                        <option defaultValue="0">Select Grade</option>
+                                        {
+                                            grades.map((grade) => {
+                                                return (
+                                                    <option key={grade.id} value={grade.id}>{"Grade " + grade.grade_number + grade.grade_suffix}</option>
+                                                )
+                                            })
+                                        }
                                     </Field>
                                     <label htmlFor="7">Grade</label>
                                     <ErrorMessage name="grade_id">

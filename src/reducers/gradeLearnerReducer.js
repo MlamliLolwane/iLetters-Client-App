@@ -5,7 +5,6 @@ export default (state = [], action) => {
      
       case actionTypes.STORE_GRADE_LEARNER_INFORMATION:
       return [
-        ...state,
         Object.assign({}, action.gradeLearnerInformation)
       ];
       case actionTypes.REMOVE_GRADE_LEARNER_INFORMATION:

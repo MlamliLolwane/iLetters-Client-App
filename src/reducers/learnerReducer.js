@@ -5,7 +5,6 @@ export default (state = [], action) => {
      
       case actionTypes.STORE_LEARNER_INFORMATION:
       return [
-        ...state,
         Object.assign({}, action.learnerInformation)
       ];
       case actionTypes.REMOVE_LEARNER_INFORMATION:
