@@ -7,9 +7,8 @@ export const storeLearnerInformation = (learnerInformation) => {
     }
 };
 
-export const deleteLearnerInformation = (id) => {
+export const deleteLearnerInformation = () => {
     return {
-        type: actionTypes.REMOVE_LEARNER_INFORMATION,
-        id: id
+        type: actionTypes.REMOVE_LEARNER_INFORMATION
     }
 };

@@ -21,6 +21,11 @@ nav .nav-link.active {
 
 
 /* -------------------------------------------Forms----------------------------------------------------- */
+.select-style{
+  border-top: 1px solid !important;
+  background-color: black !important;
+}
+
 .form-background {
     --bs-bg-opacity: 1;
     background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
@@ -54,3 +59,13 @@ nav .nav-link.active {
 }
 
 /* ----------------------------------------------------------------------------------------------------- */
+
+
+
+/* -----------------------------------------Validation-------------------------------------------------- */
+
+.validation-message{
+  color: rgb(212, 59, 59);
+  font-size: 13px;
+  font-weight: lighter;
+}

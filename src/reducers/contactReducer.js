@@ -9,7 +9,9 @@ export default (state = [], action) => {
         Object.assign({}, action.contactInformation)
       ];
       case actionTypes.REMOVE_CONTACT_INFORMATION:
-      return state.filter((data, i) => i !== action.id);
+      return [
+        []
+      ]
       default:
             return state;
     }

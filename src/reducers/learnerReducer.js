@@ -9,7 +9,9 @@ export default (state = [], action) => {
         Object.assign({}, action.learnerInformation)
       ];
       case actionTypes.REMOVE_LEARNER_INFORMATION:
-      return state.filter((data, i) => i !== action.id);
+      return [
+        []
+      ];
       default:
             return state;
     }

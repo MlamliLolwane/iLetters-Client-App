@@ -7,9 +7,8 @@ export const storeContactInformation = (contactInformation) => {
     }
 };
 
-export const deleteContactInformation = (id) => {
+export const deleteContactInformation = () => {
     return {
-        type: actionTypes.REMOVE_CONTACT_INFORMATION,
-        id: id
+        type: actionTypes.REMOVE_CONTACT_INFORMATION
     }
 };

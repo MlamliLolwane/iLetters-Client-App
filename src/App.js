@@ -38,6 +38,7 @@ import CreateNewsletter from './views/newsletters/CreateNewsletter';
  * Aggregates
  */
 import LearnerInformation from './views/aggregated/LearnerInformation';
+import LearnerDetailedInformation from './views/aggregated/LearnerDetailedInformation';
 import AdminHome from './views/aggregated/Home';
 
 
@@ -84,6 +85,7 @@ function App() {
         {/* Aggregates Routes */}
         <Route exact path="/learners/index" element={<LearnerInformation />} />
         <Route exact path="/learners/home" element={<AdminHome />} />
+        <Route exact path="learners/details" element={<LearnerDetailedInformation/>}/>
       </Routes>
     </div>
   );

@@ -7,9 +7,8 @@ export const storeGradeLearnerInformation = (gradeLearnerInformation) => {
     }
 };
 
-export const deleteGradeLearnerInformation = (id) => {
+export const deleteGradeLearnerInformation = () => {
     return {
-        type: actionTypes.REMOVE_GRADE_LEARNER_INFORMATION,
-        id: id
+        type: actionTypes.REMOVE_GRADE_LEARNER_INFORMATION
     }
 };

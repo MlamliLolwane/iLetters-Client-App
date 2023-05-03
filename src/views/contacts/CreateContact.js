@@ -1,100 +1,155 @@
 import NavbarSignedIn from '.././../components/NavbarSignedIn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { NavLink } from "react-router-dom";
-import { useState } from 'react';
-import { postRequst } from '../../axiosClient';
+import { useNavigate } from "react-router-dom";
+import { useState, useRef, useEffect } from 'react';
+//import { postRequst } from '../../axiosClient';
 import LoadingOverlay from 'react-loading-overlay-ts';
 import HashLoader from 'react-spinners/HashLoader';
+import { storeContactInformation, deleteContactInformation } from '../../actions/contactAction';
+import { deleteLearnerInformation } from '../../actions/learnerAction';
+import { deleteGradeLearnerInformation } from '../../actions/gradeLearnerAction';
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 function CreateContact() {
-    const [cellphone, setCellPhone] = useState('');
+    const [active, setActive] = useState(false);
+    const [cellPhone, setCellPhone] = useState('');
     const [whatsapp, setWhatsapp] = useState('');
     const [email, setEmail] = useState('');
-    const [active, setActive] = useState(false);
-    const [preferredContactMethod, setPreferredContactMethod] = useState('');
-    //This is where we take the data from the Learner, Grade and Contacts steps and send them to the server
-    const createLearnerInfo = (e) => {
-        e.preventDefault();
-        setActive(true);
-        const contactData = new FormData();
+    const navigate = useNavigate();
+    const learner = useSelector(state => state.learner);
+    const gradeLearner = useSelector(state => state.gradeLearner);
+    const contact = useSelector(state => state.contact);
+    const ref = useRef(null);
+    const dispatch = useDispatch();
 
-        contactData.append('cell_phone', cellphone);
-        contactData.append('whatsapp', whatsapp);
-        contactData.append('email', email);
-        contactData.append('preffered_contact_method', preferredContactMethod);
-
-        const learner = postRequst('learners/store', contactData);
-        const grade_learner = postRequst('grade_learner/store', contactData);
-        const contact = postRequst('contacts/store', contactData);
-
-        setActive(false);
-        console.log(contact);
+    function previous() {
+        dispatch(storeContactInformation(ref.current.values));
+        navigate('/grade-learner/add');
     }
+
+    useEffect(() => {
+        if (Array.isArray(contact) && contact.length) {
+            setCellPhone(contact[0].cell_phone);
+            setWhatsapp(contact[0].whatsapp);
+            setEmail(contact[0].email);
+        }
+        else {
+            setCellPhone("");
+            setWhatsapp("");
+            setEmail("");
+        }
+    }, []);
+
     return (
-        <LoadingOverlay
-            active={active}
-            styles={{
-                overlay: (base) => ({
-                    ...base,
-                    background: '#1d1b1bf6',
-                    height: '100vh'
-                }),
+        <Formik enableReinitialize={true}
+            innerRef={ref}
+            initialValues={{
+                cell_phone: cellPhone,
+                whatsapp: whatsapp,
+                email: email,
+                preffered_contact_method: ''
+            }} validationSchema={Yup.object({
+                cell_phone: Yup.string().required('Cellphone Number Required'),
+                whatsapp: Yup.string().required('Whatsapp Number Required'),
+                email: Yup.string().email('Email Address Invalid').required('Email Address Required'),
+                preffered_contact_method: Yup.string().required('Preferred Contact Method Required')
+            })} onSubmit={values => {
+                setActive(true);
+                const request = {
+                    learner_information: learner[0],
+                    grade_learner: gradeLearner[0],
+                    contacts: values
+                };
+
+                axios.post('http://localhost:8000/api/aggregates/learner/store', request)
+                    .then((response) => {
+                        dispatch(deleteLearnerInformation());
+                        dispatch(deleteGradeLearnerInformation());
+                        dispatch(deleteContactInformation());
+                        setActive(false);
+
+                        navigate('/learners/details');
+                    });
             }}
-            spinner={<HashLoader color="#4b9263" />}
         >
-            <div>
-                <NavbarSignedIn />
+            <LoadingOverlay
+                active={active}
+                styles={{
+                    overlay: (base) => ({
+                        ...base,
+                        background: '#1d1b1bf6',
+                        height: '100%'
+                    }),
+                }}
+                spinner={<HashLoader color="#4b9263" />}
+            >
+                <div>
+                    <NavbarSignedIn />
 
-                <div className="container">
-                    <div className="row my-5">
-                        <div className="col-lg-6 mx-auto form-background py-5">
-                            <h3 className="text-center text-white">CONTACTS</h3>
+                    <div className="container">
+                        <Form className="row my-5">
+                            <div className="col-lg-6 mx-auto form-background py-5">
+                                <h3 className="text-center text-white">CONTACTS</h3>
 
-                            <h6 className="text-center text-white fw-lighter">Step 3 of 3: Use this form to add contact details of the learner</h6>
+                                <h6 className="text-center text-white fw-lighter">Step 3 of 3: Use this form to add contact details of the learner</h6>
 
-                            <div class="form-floating my-4 mx-5">
-                                <input type="text" class="form-control" id="cellphone" placeholder=" "
-                                    value={cellphone} onChange={(e) => { setCellPhone(e.target.value) }} />
-                                <label for="cellphone">Cellphone Number</label>
-                            </div>
+                                <div className="form-floating my-4 mx-5">
+                                    <Field type="text" name="cell_phone" className="form-control" id="cell_phone" placeholder=" " />
+                                    <label htmlFor="cell_phone">Cellphone Number</label>
+                                    <ErrorMessage name="cell_phone">
+                                        {message => <div className="validation-message">{message}</div>}
+                                    </ErrorMessage>
+                                </div>
 
-                            <div class="form-floating mb-3 mx-5">
-                                <input type="text" class="form-control" id="whatsapp" placeholder=" "
-                                    value={whatsapp} onChange={(e) => { setWhatsapp(e.target.value) }} />
-                                <label for="whatsapp">Whatsapp Number</label>
-                            </div>
+                                <div className="form-floating mb-3 mx-5">
+                                    <Field type="text" name="whatsapp" className="form-control" id="whatsapp" placeholder=" " />
+                                    <label htmlFor="whatsapp">Whatsapp Number</label>
+                                    <ErrorMessage name="whatsapp">
+                                        {message => <div className="validation-message">{message}</div>}
+                                    </ErrorMessage>
+                                </div>
 
-                            <div class="form-floating mb-3 mx-5">
-                                <input type="email" class="form-control" id="email" placeholder=" "
-                                    value={email} onChange={(e) => { setEmail(e.target.value) }} />
-                                <label for="email">Email Address</label>
-                            </div>
+                                <div className="form-floating mb-3 mx-5">
+                                    <Field type="email" name="email" className="form-control" id="email" placeholder=" " />
+                                    <label htmlFor="email">Email Address</label>
+                                    <ErrorMessage name="email">
+                                        {message => <div className="validation-message">{message}</div>}
+                                    </ErrorMessage>
+                                </div>
 
-                            <div class="form-floating mx-5 pb-5">
-                                <label for="floatingInput">Preferred Contact Method</label>
+                                <div className="form-floating mx-5 pb-5">
+                                    <label htmlFor="floatingInput">Preferred Contact Method</label>
+                                </div>
+                                <div className="form-check form-check-inline mx-5">
+                                    <Field className="form-check-input" type="radio" name="preffered_contact_method" id="whatsapp" value="whatsapp" />
+                                    <label className="form-check-label text-white" htmlFor="whatsapp">Whatsapp</label>
+                                </div>
+                                <div className="form-check form-check-inline mx-5">
+                                    <Field className="form-check-input" type="radio" name="preffered_contact_method" id="email" value="email" />
+                                    <label className="form-check-label text-white" htmlFor="email">Email</label>
+                                </div>
+                                <div className="form-check form-check-inline mx-5">
+                                    <Field className="form-check-input" type="radio" name="preffered_contact_method" id="both" value="both" />
+                                    <label className="form-check-label text-white" htmlFor="both">Both</label>
+                                </div>
+                                <div className="form-floating mb-3 mx-5">
+                                    <ErrorMessage name="preffered_contact_method">
+                                        {message => <div className="validation-message">{message}</div>}
+                                    </ErrorMessage>
+                                </div>
+                                <div className="text-center mt-5">
+                                    <button type="button" onClick={previous} className="btn btn-secondary me-2"> PREV <FontAwesomeIcon icon="fa-solid fa-arrow-alt-circle-left" /></button>
+                                    <button type="submit" className="btn btn-primary">FINISH <FontAwesomeIcon icon="fa-solid fa-check-circle" /></button>
+                                </div>
                             </div>
-                            <div class="form-check form-check-inline mx-5">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
-                                <label class="form-check-label text-white" for="inlineRadio1">Whatsapp</label>
-                            </div>
-                            <div class="form-check form-check-inline mx-5">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
-                                <label class="form-check-label text-white" for="inlineRadio2">Email</label>
-                            </div>
-                            <div class="form-check form-check-inline mx-5">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
-                                <label class="form-check-label text-white" for="inlineRadio2">Both</label>
-                            </div>
-
-                            <div className="text-center mt-5">
-                                <NavLink to="/grade-learner/add" style={{ textDecoration: "none" }}><button type="button" class="btn btn-secondary me-2"> PREV <FontAwesomeIcon icon="fa-solid fa-arrow-alt-circle-left" /></button> </NavLink>
-                                <button type="button" onClick={createLearnerInfo} class="btn btn-primary">FINISH <FontAwesomeIcon icon="fa-solid fa-check-circle" /></button>
-                            </div>
-                        </div>
+                        </Form>
                     </div>
-                </div>
-            </div >
-        </LoadingOverlay>
+                </div >
+            </LoadingOverlay>
+        </Formik>
     );
 }
 
