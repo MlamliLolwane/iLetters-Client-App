@@ -21,7 +21,7 @@ function CreateLearner() {
     const learner = useSelector(state => state.learner);
 
     useEffect(() => {
-        if (Array.isArray(learner) && learner.length > 1) {
+        if (Array.isArray(learner) && learner.length > 0) {
             setFirstName(learner[0].first_name);
             setLastName(learner[0].last_name);
         }

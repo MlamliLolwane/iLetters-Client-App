@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LoadingOverlay from 'react-loading-overlay-ts';
 import HashLoader from 'react-spinners/HashLoader';
+import { NavLink } from "react-router-dom";
 import axios from 'axios';
 
 function LearnerDetailedInformation() {
@@ -96,8 +97,11 @@ function LearnerDetailedInformation() {
                                 </div>
 
                                 <div className="text-center pt-3">
-                                    <button type="button" className="btn btn-primary me-2"> UPDATE <FontAwesomeIcon icon="fa-solid fa-pencil-alt" /></button>
-                                    <button type="button" className="btn btn-secondary">DELETE <FontAwesomeIcon icon="fa-solid fa-delete-left" /></button>
+                                <NavLink to="/learners/add" className="btn btn-sm btn-primary me-3">
+                                ADD LEARNER <FontAwesomeIcon icon="fa-solid fa-plus-circle" /> </NavLink>
+
+                                <NavLink to="/learners/index" className="btn btn-sm btn-primary">
+                                VIEW LEARNERS <FontAwesomeIcon icon="fa-solid fa-plus-circle" /> </NavLink>
                                 </div>
 
                             </div>

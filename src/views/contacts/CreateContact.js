@@ -64,15 +64,30 @@ function CreateContact() {
                     contacts: values
                 };
 
-                axios.post('http://localhost:8000/api/aggregates/learner/store', request)
-                    .then((response) => {
-                        dispatch(deleteLearnerInformation());
-                        dispatch(deleteGradeLearnerInformation());
-                        dispatch(deleteContactInformation());
-                        setActive(false);
+                //Have to check if the user still wants to create or edit the learner
 
-                        navigate('/learners/details');
-                    });
+                if (learner.learner_id) {
+                    axios.post('http://localhost:8000/api/aggregates/learner/update/' + learner[0].learner_id, request)
+                        .then((response) => {
+                            dispatch(deleteLearnerInformation());
+                            dispatch(deleteGradeLearnerInformation());
+                            dispatch(deleteContactInformation());
+                            setActive(false);
+
+                            navigate('/learners/details');
+                        });
+                }
+                else {
+                    axios.post('http://localhost:8000/api/aggregates/learner/store', request)
+                        .then((response) => {
+                            dispatch(deleteLearnerInformation());
+                            dispatch(deleteGradeLearnerInformation());
+                            dispatch(deleteContactInformation());
+                            setActive(false);
+
+                            navigate('/learners/details');
+                        });
+                }
             }}
         >
             <LoadingOverlay

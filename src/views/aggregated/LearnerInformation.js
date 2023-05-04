@@ -3,16 +3,21 @@ import Footer from '.././../components/Footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from 'react';
-import { getRequest } from '../../axiosClient';
 import axios from 'axios';
 import LoadingOverlay from 'react-loading-overlay-ts';
 import HashLoader from 'react-spinners/HashLoader';
 import Modal from '../../components/ModalDeleteLearner';
+import { useDispatch } from "react-redux";
+import { storeLearnerInformation } from '../../actions/learnerAction';
+import { useNavigate } from "react-router-dom";
+import { storeContactInformation } from '../../actions/contactAction';
 
 function LearnerInformation() {
     const [learnerInfo, setLearnerInfo] = useState([]);
     const [active, setActive] = useState(true);
     const [learner, setLearner] = useState('');
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/query/learner-information')
@@ -24,6 +29,25 @@ function LearnerInformation() {
 
     function DeleteLearner(learner) {
         setLearner(learner);
+    }
+
+    function UpdateLearner(learner) {
+        const learnerValues = {
+            first_name: learner.first_name,
+            last_name: learner.last_name,
+            learner_id: learner.id
+        }
+
+        const contactValues = {
+            cell_phone: learner.cellphone,
+            whatsapp: learner.whatsapp,
+            email: learner.email
+        }
+
+        dispatch(storeLearnerInformation(learnerValues));
+        dispatch(storeContactInformation(contactValues));
+
+        navigate('/learners/add');
     }
 
     return (
@@ -77,10 +101,10 @@ function LearnerInformation() {
                                                         <td className="fw-semibold">{learner.whatsapp}</td>
                                                         <td className="fw-semibold">{learner.email}</td>
                                                         <td><div className="text-center">
-                                                            <button type="button" className="btn btn-sm btn-primary me-2">
+                                                            <button type="button" onClick={() => { UpdateLearner(learner) }} className="btn btn-sm btn-primary me-2">
                                                                 UPDATE <FontAwesomeIcon icon="fa-solid fa-pencil-alt" />
                                                             </button>
-                                                            <button onClick={() => DeleteLearner(learner)} className="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                                            <button type="button" onClick={() => DeleteLearner(learner)} className="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#deleteModal">
                                                                 DELETE <FontAwesomeIcon icon="fa-solid fa-delete-left" />
                                                             </button>
                                                         </div>

@@ -1,6 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
 import { useState } from 'react'
+import LoadingOverlay from 'react-loading-overlay-ts';
+import HashLoader from 'react-spinners/HashLoader';
 
 function Modal({ learner }) {
     const [active, setActive] = useState(false);
