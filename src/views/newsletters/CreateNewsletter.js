@@ -1,77 +1,129 @@
 import NavbarSignedIn from '.././../components/NavbarSignedIn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {useState} from 'react';
-import {postRequst} from '../../axiosClient';
+import { useState, useEffect } from 'react';
+import { postRequst } from '../../axiosClient';
 import LoadingOverlay from 'react-loading-overlay-ts';
 import HashLoader from 'react-spinners/HashLoader';
+import axios from "axios";
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 function CreateNewsletter() {
-    const [title, setTitle] = useState('');
-    const [body, setBody] = useState('');
-    const [comment, setComment] = useState('');
-const [active, setActive] = useState(true);
+    // const [title] = useState("");
+    // const [body] = useState("");
+    const [active, setActive] = useState(false);
+    const [grades, setGrades] = useState([]);
+    const [gradeNumbers, setGradeNumbers] = useState([]);
 
-    const createNewsletter = (e) => {
-        e.preventDefault();
+    useEffect(() => {
+        setActive(true);
+        axios.get('http://localhost:8000/api/grades/distinct')
+            .then((response) => {
+                //console.log(response.data);
+                setGradeNumbers([...new Set(response.data.map(grade => grade.grade_number))]);
+                setGrades(response.data);
+                setActive(false);
+            }).catch(e => {
+                console.log(e);
+                setActive(false);
+            })
 
-        const formData = new FormData();
-
-        formData.append('title', title);
-        formData.append('body', body);
-        formData.append('comment', setComment);
-
-        const response = postRequst('newsletters/create', formData);
-setActive(false);
-
-        console.log(response);
-    }
+        //console.log([...new Set(originalData.map(grade => grade.grade_number))]);
+    }, [])
 
     return (
-        <LoadingOverlay
-        active={active}
-        styles={{
-            overlay: (base) => ({
-                ...base,
-                background: '#1d1b1bf6',
-                height: '100vh'
-            }),
-        }}
-        spinner={<HashLoader color="#4b9263"/>}
+        <Formik
+            initialValues={{
+                title: "",
+                body: "",
+                grades: []
+            }} validationSchema={Yup.object({
+                title: Yup.string().required('Newsletter title is required'),
+                body: Yup.string().required('Newsletter body is required'),
+                //grades: Yup.string().required('Please select at least one grade and class')
+            })} onSubmit={values => {
+                console.log(values);
+            }}
         >
-        <div>
-            <NavbarSignedIn />
+            <LoadingOverlay
+                active={active}
+                styles={{
+                    overlay: (base) => ({
+                        ...base,
+                        background: '#1d1b1bf6',
+                        height: '100vh'
+                    }),
+                }}
+                spinner={<HashLoader color="#4b9263" />}
+            >
+                <div>
+                    <NavbarSignedIn />
 
-            <div className="container">
-                <div className="row my-5">
-                    <div className="col-lg-6 mx-auto form-background py-5">
-                        <h3 className="text-center text-white">NEWSLETTER</h3>
+                    <div className="container">
+                        <Form className="row my-5">
+                            <div className="col-lg-6 mx-auto form-background py-5">
+                                <h3 className="text-center text-white">NEWSLETTER</h3>
 
-                        <h6 className="text-center text-white fw-lighter">Use this form to compose a newsletter.</h6>
+                                <h6 className="text-center text-white fw-lighter">Use this form to compose a newsletter.</h6>
 
-                        <div class="form-floating my-4 mx-5">
-                            <input type="text" class="form-control" id="floatingInput" placeholder=" " />
-                            <label for="floatingInput">Title</label>
-                        </div>
+                                <div className="form-floating my-4 mx-5">
+                                    <Field type="text" className="form-control" name="title" placeholder=" " />
+                                    <label htmlFor="title">Title</label>
+                                    <ErrorMessage name="title">
+                                        {message => <div className="validation-message">{message}</div>}
+                                    </ErrorMessage>
+                                </div>
 
-                        <div class="form-floating mb-3 mx-5">
-                            <textarea class="form-control" placeholder=" " id="floatingTextarea" style={{height:"100px"}}></textarea>
-                            <label for="floatingTextarea">Body</label>
+                                <div className="form-floating mb-3 mx-5">
+                                    <Field type="textarea" className="form-control" placeholder=" " name="body" style={{ height: "100px" }} />
+                                    <label htmlFor="body">Body</label>
+                                    <ErrorMessage name="body">
+                                        {message => <div className="validation-message">{message}</div>}
+                                    </ErrorMessage>
 
-                        </div>
+                                </div>
 
-                        <div class="form-floating my-4 mx-5">
-                            <input type="text" class="form-control" id="floatingInput" placeholder=" " />
-                            <label for="floatingInput">Comment (Optional)</label>
-                        </div>
+                                <div className="form-floating mx-5 pb-5">
+                                    <label htmlFor="floatingInput">SELECT CLASSES</label>
+                                </div>
+                                {
+                                    gradeNumbers.map((gradeNumber) => {
+                                        return (
+                                            <div>
+                                                <div className="form-floating mx-5 pb-5">
+                                                    <label htmlFor="floatingInput">Grade {gradeNumber}</label>
+                                                </div>
+                                                {
+                                                    grades.map((grade) => {
+                                                        if (grade.grade_number == gradeNumber) {
+                                                            return (
+                                                                <div className="form-check form-check-inline mx-5">
+                                                                    <Field className="form-check-input" key={grade.id} type="checkbox" name="grade" value={grade.id} />
+                                                                    <label className="form-check-label text-white" htmlFor="whatsapp">Grade {grade.grade_number}{grade.grade_suffix}</label>
+                                                                </div>
+                                                            )
+                                                        }
+                                                    })
+                                                }
 
-                        <div className="text-center mt-5">
-                            <button type="button" class="btn btn-primary">CREATE NEWSLETTER <FontAwesomeIcon icon="fa-solid fa-check-circle" /></button>
-                        </div>
+                                            </div>
+                                        )
+                                    })
+                                }
+
+                                <ErrorMessage name="grade">
+                                    {message => <div className="validation-message">{message}</div>}
+                                </ErrorMessage>
+
+                                <div className="text-center mt-5">
+                                    <button type="submit" className="btn btn-primary">CREATE NEWSLETTER <FontAwesomeIcon icon="fa-solid fa-check-circle" /></button>
+                                </div>
+                            </div>
+                        </Form>
                     </div>
                 </div>
-            </div>
-        </div>
-        </LoadingOverlay>
+            </LoadingOverlay>
+        </Formik>
     );
 }
 
