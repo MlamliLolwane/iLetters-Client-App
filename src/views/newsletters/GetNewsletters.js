@@ -16,7 +16,11 @@ function GetNewsletters() {
             .then((response) => {
                 setNewsletters(response.data);
                 setActive(false);
-            })
+            }).catch((error) =>
+            {
+                setActive(false);
+                console.log(error);
+            });
     }, []);
 
     return (
@@ -54,7 +58,6 @@ function GetNewsletters() {
                                             <th>TITLE</th>
                                             <th>DATE SENT</th>
                                             <th>SENT TO GRADE(S)</th>
-                                            <th>ACTION</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -63,10 +66,13 @@ function GetNewsletters() {
                                                 return (
                                                     <tr key={newsletter.id}>
                                                         <td className="fw-semibold">{newsletter.title}</td>
-                                                        <td className="fw-semibold">{newsletter.created_at}</td>
+                                                        <td className="fw-semibold">{
+                                                        new Date(newsletter.created_at).toLocaleDateString('en-US', {
+                                                            day: '2-digit',
+                                                            month: '2-digit',
+                                                            year: 'numeric',
+                                                          })}</td>
                                                         <td className="fw-semibold">{newsletter.grades}</td>
-                                                        <td><FontAwesomeIcon icon="fa-solid fa-ellipsis-vertical" />
-                                                        </td>
                                                     </tr>
                                                 )
                                             })}

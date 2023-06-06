@@ -12,17 +12,28 @@ function Home() {
     const [usageStatistics, setUsageStatistics] = useState([]);
     const [active, setActive] = useState(true);
 
-    useEffect(() => {
-        // axios.get('http://localhost:8000/api/query/dashboard')
-        //     .then((response) => {
-        //         setUsageStatistics(response.data.data);
-        //         setActive(false);
-        //     })
-        const dashboard = getRequest('query/dashboard');
-        console.log(dashboard);
-        //setUsageStatistics(dashboard.data.data);
-        setActive(false);
+    // useEffect(() => {
+    //     axios.get('http://localhost:8000/api/query/dashboard')
+    //         .then((response) => {
+    //             setUsageStatistics(response.data);
+    //             setActive(false);
+    //             const dashboard = getRequest('query/dashboard');
+    //             console.log(dashboard);
+    //             //setUsageStatistics(dashboard.data);
+    //             setActive(false);
+    //         })
+    // }, []);
 
+    useEffect(() => {
+        axios.get('http://localhost:8000/api/query/dashboard')
+            .then((response) => {
+                setUsageStatistics(response.data.data);
+                console.log(response.data)
+                setActive(false);
+            }).catch((error) => {
+                setActive(false);
+                console.log(error);
+            })
     }, []);
 
     return (

@@ -1,4 +1,5 @@
 import NavbarSignedIn from '.././../components/NavbarSignedIn';
+import Footer from '.././../components/Footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState, useEffect } from 'react';
 import { postRequst } from '../../axiosClient';
@@ -19,7 +20,6 @@ function CreateNewsletter() {
         setActive(true);
         axios.get('http://localhost:8000/api/grades/distinct')
             .then((response) => {
-                //console.log(response.data);
                 setGradeNumbers([...new Set(response.data.map(grade => grade.grade_number))]);
                 setGrades(response.data);
                 setActive(false);
@@ -27,8 +27,6 @@ function CreateNewsletter() {
                 console.log(e);
                 setActive(false);
             })
-
-        //console.log([...new Set(originalData.map(grade => grade.grade_number))]);
     }, [])
 
     return (
@@ -40,9 +38,18 @@ function CreateNewsletter() {
             }} validationSchema={Yup.object({
                 title: Yup.string().required('Newsletter title is required'),
                 body: Yup.string().required('Newsletter body is required'),
-                //grades: Yup.string().required('Please select at least one grade and class')
+                grades:
+                    Yup.array().of(Yup.string()).min(1, 'Please select at least one grade and class')
             })} onSubmit={values => {
-                console.log(values);
+                setActive(true);
+                axios.post('http://localhost:8000/api/newsletters/store', values)
+                    .then((response) => {
+                        console.log(response);
+                        setActive(false);
+                    }).catch((error) => {
+                        setActive(false);
+                        console.log(error);
+                    })
             }}
         >
             <LoadingOverlay
@@ -74,13 +81,20 @@ function CreateNewsletter() {
                                     </ErrorMessage>
                                 </div>
 
-                                <div className="form-floating mb-3 mx-5">
+                                {/* <div className="form-floating mb-3 mx-5">
                                     <Field type="textarea" className="form-control" placeholder=" " name="body" style={{ height: "100px" }} />
                                     <label htmlFor="body">Body</label>
                                     <ErrorMessage name="body">
                                         {message => <div className="validation-message">{message}</div>}
                                     </ErrorMessage>
+                                </div> */}
 
+                                <div class="form-floating mb-3 mx-5">
+                                    <Field className="form-control" placeholder=" " name="body" style={{ height: "100px" }} />
+                                    <label htmlFor="body">Body</label>
+                                    <ErrorMessage name="body">
+                                        {message => <div className="validation-message">{message}</div>}
+                                    </ErrorMessage>
                                 </div>
 
                                 <div className="form-floating mx-5 pb-5">
@@ -98,7 +112,7 @@ function CreateNewsletter() {
                                                         if (grade.grade_number == gradeNumber) {
                                                             return (
                                                                 <div className="form-check form-check-inline mx-5">
-                                                                    <Field className="form-check-input" key={grade.id} type="checkbox" name="grade" value={grade.id} />
+                                                                    <Field className="form-check-input" type="checkbox" name="grades" value={grade.id.toString()} />
                                                                     <label className="form-check-label text-white" htmlFor="whatsapp">Grade {grade.grade_number}{grade.grade_suffix}</label>
                                                                 </div>
                                                             )
@@ -111,8 +125,8 @@ function CreateNewsletter() {
                                     })
                                 }
 
-                                <ErrorMessage name="grade">
-                                    {message => <div className="validation-message">{message}</div>}
+                                <ErrorMessage name="grades">
+                                    {message => <div className="validation-message mx-5">{message}</div>}
                                 </ErrorMessage>
 
                                 <div className="text-center mt-5">
@@ -121,6 +135,7 @@ function CreateNewsletter() {
                             </div>
                         </Form>
                     </div>
+                    <Footer />
                 </div>
             </LoadingOverlay>
         </Formik>

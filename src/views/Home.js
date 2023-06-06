@@ -18,7 +18,7 @@ function Home() {
                         Please Login to be able to access and manage your school newsletters.</h5>
 
                     <div className="text-center mt-4">
-                    <NavLink to="/login"><button type="button" class="btn btn-primary">LOGIN <FontAwesomeIcon icon="fa-solid fa-right-to-bracket" /></button></NavLink>
+                    <NavLink to="/#"><button type="button" class="btn btn-primary">DEMO <FontAwesomeIcon icon="fa-solid fa-right-to-bracket" /></button></NavLink>
                     </div>
                 </div>
             </div>

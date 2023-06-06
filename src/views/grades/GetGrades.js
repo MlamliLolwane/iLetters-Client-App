@@ -8,12 +8,18 @@ import LoadingOverlay from 'react-loading-overlay-ts';
 import HashLoader from 'react-spinners/HashLoader';
 function GetGrades() {
     const [grades, setGrades] = useState([]);
+    const [gradeSuffix, setGradeSuffix] = useState([]);
     const [active, setActive] = useState(true);
     useEffect(() => {
-        axios.get('http://localhost:8000/api/grades/index')
+        axios.get('http://localhost:8000/api/grades/distinct/noid')
             .then((response) => {
-                setGrades(response.data);
-                console.log(response.data[0]);
+                //Loop through the response and set the grade numbers as well as the grade suffix
+                setGrades([...new Set(response.data.map(grade => grade.grade_number))]);
+                //console.log(response.data)
+                setGradeSuffix(response.data);
+                setActive(false);
+            }).catch(e => {
+                console.log(e);
                 setActive(false);
             })
     }, []);
@@ -52,20 +58,26 @@ function GetGrades() {
                                         <tr>
                                             <th>GRADE</th>
                                             <th>CLASSES</th>
-                                            <th>ACTION</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {
-                                            grades.map((grade) => {
+                                            grades.map((gradeNumber) => {
+                                                var suffix = "";
                                                 return (
-                                                    <tr key={grade.id}>
-                                                            <td className="fw-semibold">{grade.current_grade}</td>
-                                                            <td className="fw-semibold">{grade.classes}</td>
-                                                            <td><FontAwesomeIcon icon="fa-solid fa-ellipsis-vertical" />
-                                                            </td>
+                                                    <tr>
+                                                        <td className="fw-semibold">{gradeNumber}</td>
+
+                                                        {
+                                                            gradeSuffix.map((grade) => {
+                                                                if (grade.grade_number == gradeNumber)
+                                                                    suffix = suffix + ", " + grade.grade_suffix
+                                                            })
+                                                        }
+                                                        <td className="fw-semibold">{suffix.substring(1)}</td>
                                                     </tr>
                                                 )
+
                                             })
                                         }
                                     </tbody>

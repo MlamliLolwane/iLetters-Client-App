@@ -8,7 +8,7 @@ function NavbarSignedIn() {
                 <nav className="navbar navbar-expand-lg bg-body-tertiary bg-dark">
                     <div className="container-fluid">
                     <NavLink to="/learners/home" className="navbar-brand text-white">iLetters <FontAwesomeIcon icon="fa-solid fa-share" /></NavLink>
-                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                        <button className="navbar-toggler" type="button" style={{borderColor:"white", boxShadow: "none"}} data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                         <FontAwesomeIcon icon="fa-solid fa-bars" className="text-white"/>
                         </button>
                         <div className="collapse navbar-collapse" id="navbarText">

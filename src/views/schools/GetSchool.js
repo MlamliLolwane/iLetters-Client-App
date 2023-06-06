@@ -99,8 +99,7 @@ function GetSchool() {
                         </div>
 
                         <div className="text-center pt-3">
-                            <button type="button" className="btn btn-primary me-2"> UPDATE <FontAwesomeIcon icon="fa-solid fa-pencil-alt" /></button>
-                            <button type="button" className="btn btn-secondary">DELETE <FontAwesomeIcon icon="fa-solid fa-delete-left" /></button>
+                            <button type="button" className="btn btn-primary"> UPDATE <FontAwesomeIcon icon="fa-solid fa-pencil-alt" /></button>
                         </div>
 
                     </div>

@@ -24,6 +24,9 @@ function LearnerInformation() {
             .then((response) => {
                 setLearnerInfo(response.data.data);
                 setActive(false);
+            }).catch((error) => {
+                setActive(false);
+                console.log(error);
             })
     }, []);
 
