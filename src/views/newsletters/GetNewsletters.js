@@ -16,8 +16,7 @@ function GetNewsletters() {
             .then((response) => {
                 setNewsletters(response.data);
                 setActive(false);
-            }).catch((error) =>
-            {
+            }).catch((error) => {
                 setActive(false);
                 console.log(error);
             });
@@ -58,6 +57,7 @@ function GetNewsletters() {
                                             <th>TITLE</th>
                                             <th>DATE SENT</th>
                                             <th>SENT TO GRADE(S)</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -67,12 +67,17 @@ function GetNewsletters() {
                                                     <tr key={newsletter.id}>
                                                         <td className="fw-semibold">{newsletter.title}</td>
                                                         <td className="fw-semibold">{
-                                                        new Date(newsletter.created_at).toLocaleDateString('en-US', {
-                                                            day: '2-digit',
-                                                            month: '2-digit',
-                                                            year: 'numeric',
-                                                          })}</td>
+                                                            new Date(newsletter.created_at).toLocaleDateString('en-US', {
+                                                                day: '2-digit',
+                                                                month: '2-digit',
+                                                                year: 'numeric',
+                                                            })}</td>
                                                         <td className="fw-semibold">{newsletter.grades}</td>
+                                                        <td>
+                                                            <div className="text-center">
+                                                                <NavLink to="/" type="submit" className="btn btn-primary btn-sm">VIEW <FontAwesomeIcon icon="fa-solid fa-check-circle" /></NavLink>
+                                                            </div>
+                                                        </td>
                                                     </tr>
                                                 )
                                             })}

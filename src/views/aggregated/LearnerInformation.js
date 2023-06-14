@@ -8,9 +8,9 @@ import LoadingOverlay from 'react-loading-overlay-ts';
 import HashLoader from 'react-spinners/HashLoader';
 import Modal from '../../components/ModalDeleteLearner';
 import { useDispatch } from "react-redux";
-import { storeLearnerInformation } from '../../actions/learnerAction';
+import { storeLearnerInformation, deleteLearnerInformation } from '../../actions/learnerAction';
 import { useNavigate } from "react-router-dom";
-import { storeContactInformation } from '../../actions/contactAction';
+import { storeContactInformation, deleteContactInformation} from '../../actions/contactAction';
 
 function LearnerInformation() {
     const [learnerInfo, setLearnerInfo] = useState([]);
@@ -53,6 +53,13 @@ function LearnerInformation() {
         navigate('/learners/add');
     }
 
+    function ClearLearner()
+    {
+        dispatch(deleteLearnerInformation());
+        dispatch(deleteContactInformation());
+        navigate('/learners/add');
+    }
+
     return (
         <LoadingOverlay
             active={active}
@@ -72,8 +79,9 @@ function LearnerInformation() {
                     <div className="row mt-5 pb-2">
                         <div className="col">
                             <h5 className="fw-bold d-inline">ALL LEARNERS</h5>
-                            <NavLink to="/learners/add" className="btn btn-sm btn-primary float-end">
-                                ADD LEARNER <FontAwesomeIcon icon="fa-solid fa-plus-circle" /> </NavLink>
+                                <button type="button" onClick={ClearLearner} className="btn btn-sm btn-primary me-2 float-end">
+                                ADD LEARNER <FontAwesomeIcon icon="fa-solid fa-plus-circle" />
+                                                            </button>
                         </div>
                     </div>
 
